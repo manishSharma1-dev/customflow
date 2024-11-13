@@ -13,7 +13,8 @@ const nodeSchema:Schema<nodeInterface> = new Schema(
             required : true
         },
         index : {
-            type : Number
+            type : Number,
+            default : 0
         },
         controlflowid : {
             type : Number,
