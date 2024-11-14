@@ -8,7 +8,7 @@ export async function GET(req:Request, { params }: {params :any}) {
 
         await ConnectDB()
 
-        const { workflowid } = params
+        const { workflowid } = await params
 
         if (!workflowid){
             return NextResponse.json(

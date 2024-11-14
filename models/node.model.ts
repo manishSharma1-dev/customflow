@@ -1,9 +1,9 @@
-import mongoose, { Schema, Document, mongo} from "mongoose"
+import mongoose, { Schema, Document} from "mongoose"
 
 export interface nodeInterface extends Document {
     text : string,
     index : number,
-    controlflowid : number,
+    controlflowid : string,
 }
 
 const nodeSchema:Schema<nodeInterface> = new Schema(
@@ -17,7 +17,7 @@ const nodeSchema:Schema<nodeInterface> = new Schema(
             default : 0
         },
         controlflowid : {
-            type : Number,
+            type : String,
             required : true
         }
     },
@@ -26,7 +26,7 @@ const nodeSchema:Schema<nodeInterface> = new Schema(
     }
 )
 
-const Nodemodel = mongoose.models.nodeInterface as mongoose.Model<nodeInterface> || mongoose.model("Nodemodel",nodeSchema)
+const Nodemodel = mongoose.models.Nodemodel as mongoose.Model<nodeInterface> || mongoose.model("Nodemodel",nodeSchema)
 
 export {
     Nodemodel

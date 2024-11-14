@@ -9,7 +9,7 @@ export async function POST(req:Request) {
         await ConnectDB()
 
         const { projectname } = await req.json()
-    
+
         if(!projectname){
             return NextResponse.json(
                 {

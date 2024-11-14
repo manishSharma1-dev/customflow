@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server"
 import { Nodemodel  } from "@/models/node.model"
 import { ConnectDB } from "@/connections/ConnectDb"
+import { Flowmodel } from "@/models/controlflow.model"
 
 export async function POST(req:Request , { params } : { params : any }) {
 
     try {
 
         await ConnectDB()
-
+        
         const { text } = await req.json()
 
         const { workflowid } = await params
@@ -36,9 +37,24 @@ export async function POST(req:Request , { params } : { params : any }) {
             )
         }
 
+        const customflowidchecking = await Flowmodel.findById(workflowid)
+
+        if(!customflowidchecking){
+            return NextResponse.json(
+                {
+                    success : false,
+                    message : "failed -Id didin't match"
+                },
+                {
+                    status : 400
+                }
+            )
+        }
+
         const latestNode = await Nodemodel.findOne({
             controlflowid : workflowid
         }).sort({ index : 'desc'})
+        
         
         const newNode = await Nodemodel.create({
             text : text,
@@ -46,7 +62,7 @@ export async function POST(req:Request , { params } : { params : any }) {
             controlflowid : workflowid
         })
     
-        const checkifnewnodeisCreated = await Nodemodel.findById(newNode._id)
+        const checkifnewnodeisCreated = await Nodemodel.findById(newNode._id).select(" -text")
     
         if(!checkifnewnodeisCreated){
             return NextResponse.json(
@@ -61,6 +77,10 @@ export async function POST(req:Request , { params } : { params : any }) {
         }
     
         await newNode.save({ validateBeforeSave : true })
+
+        await customflowidchecking.Nodes.push(checkifnewnodeisCreated)
+
+        await customflowidchecking.save({ validateBeforeSave : true })
     
         return NextResponse.json(
             {

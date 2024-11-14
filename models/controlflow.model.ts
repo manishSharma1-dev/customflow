@@ -14,7 +14,7 @@ const flowSchema:Schema<flowSchemaInterface> = new Schema(
         },
         Nodes : [
             {
-                type : Schema.Types.Mixed,
+                type : Schema.Types.ObjectId,
                 ref : "Node"
             }
         ]
@@ -22,7 +22,7 @@ const flowSchema:Schema<flowSchemaInterface> = new Schema(
     ,{ timestamps : true }
 )
 
-const Flowmodel = mongoose.models.flowSchemaInterface as mongoose.Model<flowSchemaInterface> || mongoose.model("Flowmodel",flowSchema) 
+const Flowmodel = mongoose.models.Flowmodel  as mongoose.Model<flowSchemaInterface> || mongoose.model("Flowmodel",flowSchema) 
 
 export { 
     Flowmodel

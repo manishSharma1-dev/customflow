@@ -13,8 +13,9 @@ const ConnectDB = async() => {
         if(connection.isConnected){
         } else {
 
-            const ConnectionString = ''
-            const connectionResponse = await mongoose.connect(`${ConnectionString}`)
+            const ConnectionString = process.env.DATABASE_URI
+            const DBConnCollection = process.env.DB_COLL
+            const connectionResponse = await mongoose.connect(`${ConnectionString}${DBConnCollection}`)
         
             if(!connectionResponse){
                 return NextResponse.json(
