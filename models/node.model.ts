@@ -26,7 +26,7 @@ const nodeSchema:Schema<nodeInterface> = new Schema(
     }
 )
 
-const Nodemodel = mongoose.models.Nodemodel as mongoose.Model<nodeInterface> || mongoose.model("Nodemodel",nodeSchema)
+const Nodemodel = mongoose.models.Node as mongoose.Model<nodeInterface> || mongoose.model("Node",nodeSchema)
 
 export {
     Nodemodel

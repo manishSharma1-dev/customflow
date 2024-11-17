@@ -15,7 +15,7 @@ const flowSchema:Schema<flowSchemaInterface> = new Schema(
         Nodes : [
             {
                 type : Schema.Types.ObjectId,
-                ref : "Node"
+                ref : "Node" //this ref must match the name of the node models
             }
         ]
     }

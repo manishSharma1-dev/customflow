@@ -78,9 +78,10 @@ export async function POST(req:Request , { params } : { params : any }) {
     
         await newNode.save({ validateBeforeSave : true })
 
-        await customflowidchecking.Nodes.push(checkifnewnodeisCreated)
+        await Flowmodel.findByIdAndUpdate(workflowid, { 
+            $push: { Nodes: newNode._id } 
+        });
 
-        await customflowidchecking.save({ validateBeforeSave : true })
     
         return NextResponse.json(
             {
